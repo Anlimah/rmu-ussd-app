@@ -239,4 +239,11 @@ class USSDHandler
         );
         $this->dm->inputData($query, $params);
     }
+
+    public function requestLogger($request)
+    {
+        $query = "INSERT INTO `ussd_request_logs` (`request`) VALUES(:r)";
+        $params = array(":r" => $request);
+        $this->dm->inputData($query, $params);
+    }
 }
