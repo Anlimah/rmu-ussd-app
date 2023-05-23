@@ -13,7 +13,7 @@ $networkCode    = $_POST["nw_code"];        // network code 01 > MTN, 02 > VODA,
 $msgType        = $_POST["msg_type"];       // Message Type 0, 1, 2
 
 $ussd = new USSDHandler($sessionId, $serviceCode, $phoneNumber, $ussdBody, $networkCode, $msgType);
-$ussd->requestLogger($_POST);
+$ussd->requestLogger(json_encode($_POST));
 $response = $ussd->control();
 
 header("Content-Type: application/json");
