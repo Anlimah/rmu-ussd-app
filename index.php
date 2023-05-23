@@ -3,6 +3,8 @@ require_once('bootstrap.php');
 
 use Src\Controller\USSDHandler;
 
+$response;
+
 switch ($_SERVER["REQUEST_METHOD"]) {
     case 'POST':
         $sessionId      = $_POST["session_id"];     // Session ID
