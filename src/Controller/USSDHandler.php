@@ -2,8 +2,6 @@
 
 namespace Src\Controller;
 
-session_start();
-
 use Src\Controller\ExposeDataController;
 use Src\Controller\PaymentController;
 use Src\System\DatabaseMethods;
@@ -63,8 +61,8 @@ class USSDHandler
 
             switch ($this->msgType) {
                 case '0':
-                    //$user = $this->sessionId . ":" . $this->phoneNumber;
-                    //$_SESSION["ussd_start"] = base64_encode($user);
+                    $user = $this->sessionId . ":" . $this->phoneNumber;
+                    $_SESSION["ussd_start"] = base64_encode($user);
                     $this->mainMenuResponse();
                     break;
 
