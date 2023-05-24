@@ -94,7 +94,7 @@ class USSDHandler
 
     private function mainMenuResponse()
     {
-        $response  = "Welcome to RMU Online Forms Purchase platform. Select a form to buy.\n";
+        $response  = "Welcome to RMU Online Forms Purchase platform. Select a form to buy.\n\n";
         $allForms = $this->expose->getAvailableForms();
 
         foreach ($allForms as $form) {
