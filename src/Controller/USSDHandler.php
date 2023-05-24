@@ -2,6 +2,8 @@
 
 namespace Src\Controller;
 
+session_start();
+
 use Src\Controller\ExposeDataController;
 use Src\Controller\PaymentController;
 use Src\System\DatabaseMethods;
