@@ -25,6 +25,7 @@ class USSDHandler
     private $userMoMoNum    = null;
 
     private $totalFormsAvailable = 0;
+    private $previousLevel = 0;
 
     public function __construct($sessionId, $phoneNumber, $msgType, $serviceCode, $ussdBody, $networkCode)
     {
@@ -32,17 +33,18 @@ class USSDHandler
         $this->phoneNumber  = $phoneNumber;
         $this->msgType      = $msgType;
         $this->serviceCode  = $serviceCode;
-        $this->ussdBody      = $ussdBody;
+        $this->ussdBody     = $ussdBody;
         $this->networkCode  = $networkCode;
 
         $this->expose = new ExposeDataController();
         $this->dm = new DatabaseMethods();
+
+        $this->activityLogger();
     }
 
     public function control()
     {
         $this->setSessionLevels();
-        $this->activityLogger();
 
         if (!isset($this->sessionId) || !isset($this->serviceCode) || !isset($phoneNumber) || !isset($ussdBody) || !isset($networkCode))
             $this->ussdBody = "[01] Invalid request!";
@@ -59,8 +61,8 @@ class USSDHandler
 
             switch ($this->msgType) {
                 case '0':
-                    $user = $this->sessionId . ":" . $this->phoneNumber;
-                    $_SESSION["ussd_start"] = base64_encode($user);
+                    //$user = $this->sessionId . ":" . $this->phoneNumber;
+                    //$_SESSION["ussd_start"] = base64_encode($user);
                     $this->mainMenuResponse();
                     break;
 
@@ -262,11 +264,12 @@ class USSDHandler
 
     public function activityLogger()
     {
-        $query = "INSERT INTO `ussd_activity_logs` (`session_id`, `service_code`, `msisdn`, `msg_type`, `ussd_body`, `nw_code`) 
-                    VALUES(:si, :sc, :ms, :mt, :ub, :nc)";
+        $query = "INSERT INTO `ussd_activity_logs` (`session_id`, `service_code`, `msisdn`, `msg_type`, `ussd_body`, `nw_code`, `level`) 
+                    VALUES(:si, :sc, :ms, :mt, :ub, :nc, :l)";
         $params = array(
             ":si" => $this->sessionId, ":sc" => $this->serviceCode, ":ms" => $this->phoneNumber,
-            ":mt" => $this->msgType, ":ub" => $this->ussdBody, ":nc" => $this->networkCode
+            ":mt" => $this->msgType, ":ub" => $this->ussdBody, ":nc" => $this->networkCode,
+            ":l" => $this->previousLevel
         );
         $this->dm->inputData($query, $params);
     }
