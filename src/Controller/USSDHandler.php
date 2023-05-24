@@ -96,7 +96,7 @@ class USSDHandler
     private function mainMenuResponse()
     {
         if (!isset($_SESSION["ussd_start"]) || empty($_SESSION["ussd_start"])) {
-            $response = "Sorry, your request couldn't be processed!";
+            $response = "Sorry, your request couldn't be processed! [1]";
             $msgType = "2";
         } else {
             $response  = "Welcome to RMU Online Forms Purchase platform. Select a form to buy.\n\n";
@@ -149,7 +149,7 @@ class USSDHandler
     {
 
         if (!isset($_SESSION["ussd_start"]) || empty($_SESSION["ussd_start"])) {
-            $response = "Sorry, your request couldn't be processed!";
+            $response = "Sorry, your request couldn't be processed! [2]";
             $msgType = "2";
         } else {
             $expose = new ExposeDataController();
