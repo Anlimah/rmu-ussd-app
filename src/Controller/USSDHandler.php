@@ -26,12 +26,12 @@ class USSDHandler
     private $userLastName   = null;
     private $userMoMoNum    = null;
 
-    public function __construct($sessionId, $serviceCode, $phoneNumber, $ussdBody, $networkCode, $msgType)
+    public function __construct($sessionId, $phoneNumber, $msgType, $serviceCode, $ussdBody, $networkCode)
     {
         $this->sessionId    = $sessionId;
-        $this->serviceCode  = $serviceCode;
         $this->phoneNumber  = $phoneNumber;
         $this->msgType      = $msgType;
+        $this->serviceCode  = $serviceCode;
         $this->ussdBody      = $ussdBody;
         $this->networkCode  = $networkCode;
 
@@ -65,12 +65,6 @@ class USSDHandler
                     break;
 
                 case '1':
-
-                    if (!empty($this->ussdBody)) {
-                        // Set session levels
-                        $this->setSessionLevels();
-                    }
-
                     $this->continueResponse();
                     break;
 
@@ -172,7 +166,7 @@ class USSDHandler
             $network = $networks_codes[$net_code];
 
             if (!$network) {
-                $response = "This service is only available for MTN and VODAFONE users. To buy RMU forms with all networks, visit https://forms.rmuictonline.com";
+                $response = "Sorry, your network not supported. To buy RMU forms with all networks, visit https://forms.rmuictonline.com";
             } else {
                 $vendor_id = "1665605087";
                 $phone_number = "0" . substr($_SESSION["level"][4], $phone_number_start, 9);
