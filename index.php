@@ -1,4 +1,7 @@
 <?php
+session_start();
+$_SESSION["level"] = array();
+
 require_once('bootstrap.php');
 
 use Src\Controller\USSDHandler;
@@ -16,7 +19,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         $serviceCode    = $_POST["service_code"];   // Service code
 
         $ussd = new USSDHandler($sessionId, $phoneNumber, $msgType, $serviceCode, $ussdBody, $networkCode);
-        $ussd->requestLogger(json_encode($_POST));
         $response = $ussd->control();
 
         header("Content-Type: application/json");
