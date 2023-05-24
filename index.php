@@ -3,6 +3,8 @@ require_once('bootstrap.php');
 
 use Src\Controller\USSDHandler;
 
+$response;
+
 switch ($_SERVER["REQUEST_METHOD"]) {
     case 'POST':
         parse_str(file_get_contents("php://input"), $_POST);
