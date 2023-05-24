@@ -7,7 +7,7 @@ $response;
 
 switch ($_SERVER["REQUEST_METHOD"]) {
     case 'POST':
-        parse_str(file_get_contents("php://input"), $_POST);
+        $_POST = json_decode(file_get_contents("php://input"), true);
         $sessionId      = $_POST["session_id"];     // Session ID
         $phoneNumber    = $_POST["msisdn"];         // Phone number
         $msgType        = $_POST["msg_type"];       // Message Type 0, 1, 2
@@ -20,7 +20,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         $response = $ussd->control();
 
         header("Content-Type: application/json");
-        echo $response;
+        echo json_encode($response);
         break;
 
     default:
