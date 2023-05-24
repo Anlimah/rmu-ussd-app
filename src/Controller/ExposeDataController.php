@@ -5,8 +5,6 @@ namespace Src\Controller;
 use Src\System\DatabaseMethods;
 use Src\Controller\PaymentController;
 use Src\Gateway\CurlGatewayAccess;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 class ExposeDataController
 {
@@ -258,29 +256,6 @@ class ExposeDataController
         return $this->dm->getData("SELECT * FROM `halls`");
     }*/
 
-    public function sendEmail($recipient_email, $subject, $message)
-    {
-        //PHPMailer Object
-        $mail = new PHPMailer(true); //Argument true in constructor enables exceptions
-        //From email address and name
-        $mail->From = "rmuicton@rmuictonline.com";
-        $mail->FromName = "rmuicton";
-
-        //To address and name
-        $mail->addAddress($recipient_email);
-        //Send HTML or Plain Text email
-        $mail->isHTML(true);
-        $mail->Subject = $subject;
-        $mail->Body = $message;
-
-        try {
-            if ($mail->send()) return 1;
-        } catch (Exception $e) {
-            echo "Mailer Error: " . $mail->ErrorInfo;
-        }
-        return 0;
-    }
-
     public function sendHubtelSMS($url, $payload)
     {
         $client = getenv('HUBTEL_CLIENT');
@@ -306,16 +281,6 @@ class ExposeDataController
         $response = json_decode($this->sendSMS($to, $message), true);
         if (!$response["status"]) $response["otp_code"] = $otp_code;
         return $response;
-    }
-
-    public function sendEmailVerificationCode($email)
-    {
-        $v_code = $this->genCode(6);
-        $subject = 'VERIFICATION CODE';
-        $message = "Your verification code: " . $v_code;
-
-        if (!$this->sendEmail($email, $subject, $message)) return 0;
-        return $v_code;
     }
 
     public function getVendorPhone($vendor_id)

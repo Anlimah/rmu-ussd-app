@@ -54,7 +54,7 @@ class USSDHandler
 
         //
         else {
-            $this->setSessionLevels();
+            //$this->setSessionLevels();
 
             switch ($this->msgType) {
                 case '0':
