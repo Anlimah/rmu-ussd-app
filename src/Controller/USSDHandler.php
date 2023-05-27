@@ -43,7 +43,7 @@ class USSDHandler
         } else if (empty($this->sessionId) || empty($this->serviceCode) || empty($this->phoneNumber) || empty($this->ussdBody) || empty($this->networkCode)) {
             $this->ussdBody = "[02] Invalid request!";
             $this->msgType = "2";
-        } else if ($this->networkCode  == "03" && $this->networkCode  == "04") {
+        } else if ($this->networkCode  == "03" || $this->networkCode  == "04") {
             $this->unSupportedNetworksResponse();
         } else {
 
@@ -72,9 +72,8 @@ class USSDHandler
             "nw_code" => $this->networkCode,
         );
 
-        //if ($this->msgType == "2" || $this->msgType == "3") $this->removeUserSessionLogs();
-        if ($this->msgType == "0" || $this->msgType == "1" || $this->msgType == "2") return $this->payload;
-        return array();
+        if ($this->msgType == "2" || $this->msgType == "3") $this->removeUserSessionLogs();
+        return $this->payload;
     }
 
     private function unSupportedNetworksResponse()
