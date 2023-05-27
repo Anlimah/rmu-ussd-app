@@ -37,11 +37,11 @@ class USSDHandler
 
     public function run()
     {
-        if (!isset($this->sessionId) || !isset($this->serviceCode) || !isset($this->phoneNumber) || !isset($this->ussdBody) || !isset($this->networkCode)) {
-            $this->ussdBody = "[01] Invalid request!";
+        if (!isset($this->sessionId) || !isset($this->phoneNumber) || !isset($this->ussdBody) || !isset($this->networkCode)) {
+            $this->ussdBody = "[01] Sorry, unable to process request at this time!";
             $this->msgType = "2";
-        } else if (empty($this->sessionId) || empty($this->serviceCode) || empty($this->phoneNumber) || empty($this->ussdBody) || empty($this->networkCode)) {
-            $this->ussdBody = "[02] Invalid request!";
+        } else if (empty($this->sessionId) || empty($this->phoneNumber) || empty($this->ussdBody) || empty($this->networkCode)) {
+            $this->ussdBody = "[02] Sorry, unable to process request at this time!";
             $this->msgType = "2";
         } else if ($this->networkCode  == "03" || $this->networkCode  == "04") {
             $this->unSupportedNetworksResponse();
