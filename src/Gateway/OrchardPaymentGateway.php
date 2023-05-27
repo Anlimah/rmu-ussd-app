@@ -5,25 +5,21 @@ namespace Src\Gateway;
 class OrchardPaymentGateway
 {
     private $url = null;
-    private $request = null;
     private $payload = null;
     private $secret_key = null;
 
     private $curl_array = array();
 
 
-    public function __construct($secret, $url, $request, $payload = array())
+    public function __construct($secret, $url, $payload = array())
     {
         $this->url = $url;
-        $this->request = $request;
         $this->payload = $payload;
         $this->secret_key = $secret;
     }
 
     private function setCURL_Array()
     {
-        //if ($this->request == 'GET') $this->payload = array();
-
         $this->curl_array = array(
             CURLOPT_URL => $this->url,
             CURLOPT_RETURNTRANSFER => true,
@@ -32,7 +28,7 @@ class OrchardPaymentGateway
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => $this->request,
+            CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => $this->payload,
             CURLOPT_HTTPHEADER => array(
                 "Authorization: " . $this->secret_key,
