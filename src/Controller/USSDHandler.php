@@ -202,11 +202,11 @@ class USSDHandler
                     }
                 }
             } else {
-                $response = "Sorry you've entered an invalid phone number. [5]";
+                $response = "Sorry you've entered an invalid phone number.";
             }
             $msgType = '2';
         } else {
-            $response = "Sorry, unable to process your request. [6]";
+            $response = "Sorry, unable to process your request.";
             $msgType = '2';
         }
 
