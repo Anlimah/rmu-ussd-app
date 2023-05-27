@@ -107,11 +107,11 @@ class USSDHandler
         if (isset($level[0]) && !empty($level[0]) && !isset($level[1])) {
             if ($this->validateSelectedFormOption($level[0])) {
                 $formInfo = $this->expose->getFormPriceA($level[0]);
-                $response = $formInfo[0]["name"] . " forms cost GHc " . $formInfo[0]["amount"] . ".  Enter 1 to continue {$level[0]}.\n";
+                $response = $formInfo[0]["name"] . " forms cost GHc " . $formInfo[0]["amount"] . ".  Enter 1 to continue.\n";
                 $response .= "1. Buy";
                 $msgType = '1';
             } else {
-                $response = "Sorry you've entered an invalid option. [1]";
+                $response = "Sorry you've entered an invalid option.";
                 $msgType = '2';
             }
         }
@@ -121,7 +121,7 @@ class USSDHandler
                 $response = "Enter your first name.";
                 $msgType = '1';
             } else {
-                $response = "Sorry you've entered an invalid option. [2]";
+                $response = "Sorry you've entered an invalid option.";
                 $msgType = '2';
             }
         }
@@ -131,17 +131,17 @@ class USSDHandler
                 $response = "{$level[2]}, please enter your last name.";
                 $msgType = '1';
             } else {
-                $response = "Sorry you've entered an invalid input. [3]";
+                $response = "Sorry you've entered an invalid input.";
                 $msgType = '2';
             }
         }
         //
         else if (isset($level[3]) && !empty($level[3]) && !isset($level[4])) {
             if ($this->validateTextInputs($level[3])) {
-                $response = "Enter the Mobile Money number which will be used to buy the form. {$level[3]} eg 024XXXXXXX";
+                $response = "Enter the Mobile Money number which will be used to buy the form. eg 024XXXXXXX";
                 $msgType = '1';
             } else {
-                $response = "Sorry you've entered an invalid input. [4]";
+                $response = "Sorry you've entered an invalid input.";
                 $msgType = '2';
             }
         }
