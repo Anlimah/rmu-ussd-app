@@ -7,9 +7,8 @@ use Src\Controller\USSDHandler;
 switch ($_SERVER["REQUEST_METHOD"]) {
     case 'POST':
         $_POST = json_decode(file_get_contents("php://input"), true);
-
-        $ussd = new USSDHandler($_POST);
-        $response = $ussd->control();
+        $response = array();
+        if (!empty($_POST)) $response = (new USSDHandler($_POST))->run();
 
         header("Content-Type: application/json");
         echo json_encode($response);
