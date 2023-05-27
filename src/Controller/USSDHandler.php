@@ -72,7 +72,7 @@ class USSDHandler
             "nw_code" => $this->networkCode,
         );
 
-        if ($this->msgType == "2" || $this->msgType == "3") $this->removeUserSessionLogs();
+        //if ($this->msgType == "2" || $this->msgType == "3") $this->removeUserSessionLogs();
         return $this->payload;
     }
 
