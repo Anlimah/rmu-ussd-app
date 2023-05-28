@@ -147,7 +147,7 @@ class PaymentController
             "ts" => date("Y-m-d H:i:s")
         ));
 
-        $endpointUrl = "https://payments.anmgw.com/sendRequest";
+        $endpointUrl = "https://orchard-api.anmgw.com/sendRequest";
         $response = json_decode($this->setOrchardPaymentGatewayParams($payload, $endpointUrl));
 
         if ($response->resp_code == "000" || $response->resp_code == "015") {

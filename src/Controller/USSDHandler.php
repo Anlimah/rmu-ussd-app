@@ -3,7 +3,6 @@
 namespace Src\Controller;
 
 use Src\Controller\ExposeDataController;
-use Src\Controller\PaymentController;
 use Src\System\DatabaseMethods;
 
 class USSDHandler
@@ -19,6 +18,7 @@ class USSDHandler
     private $networkCode    = null;
 
     private $payload        = array();
+    private $payData        = array();
 
     public function __construct($data)
     {
@@ -71,6 +71,8 @@ class USSDHandler
             "ussd_body" => $this->ussdBody,
             "nw_code" => $this->networkCode,
         );
+
+        if (!empty($this->payData)) $this->payload["data"] = $this->payData;
 
         if ($this->msgType == "2" || $this->msgType == "3") $this->removeUserSessionLogs();
         return $this->payload;
@@ -192,14 +194,8 @@ class USSDHandler
                         "admin_period" => $admin_period
                     );
 
-                    $pay = new PaymentController();
-                    $result = $pay->orchardPaymentControllerB($data);
-
-                    if (!$result["success"]) {
-                        $response = "Process failed! {$result["status"]} {$result["message"]}";
-                    } else {
-                        $response = "Thank you! Payment prompt will be sent to {$level[4]} shortly.";
-                    }
+                    $this->payData = $data;
+                    $response = "Thank you! Payment prompt will be sent to {$level[4]} shortly.";
                 }
             } else {
                 $response = "Sorry you've entered an invalid phone number.";

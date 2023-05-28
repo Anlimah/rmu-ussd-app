@@ -255,19 +255,7 @@ class VoucherPurchase
             $response = json_decode($this->expose->sendSMS($to, $message));
 
             if (!$response->status) {
-                if (!empty($data[0]["email_address"])) {
-                    $this->expose->sendEmail($data[0]["email_address"], 'ONLINE APPLICATION PORTAL LOGIN INFORMATION', $message);
-                }
-                $browser_mg = '
-                        <p class="mb-4" style="text-align: justify !important; width: 100%; margin:0; padding:0">
-                            <b class="text-success">Form purchase successful!</b><br> 
-                            An email and SMS with your <b>Application Number</b> and <b>PIN</b> 
-                            to access application portal, has been sent to you!<br> 
-                            Please confirm and proceed to the <a href="https://admissions.rmuictonline.com/apply/"> 
-                            <b>online application portal</b></a> 
-                            to complete your application process.
-                        </p>';
-                return array("success" => true, "message" => $browser_mg, "exttrid" => $trans_id);
+                return array("success" => true, "exttrid" => $trans_id);
             } else {
                 return array("success" => false, "message" => "Failed sending login details via SMS!");
             }
