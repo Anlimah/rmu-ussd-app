@@ -4,7 +4,6 @@ require_once('bootstrap.php');
 
 use Src\Controller\USSDHandler;
 use Src\Controller\PaymentController;
-use Src\Controller\ExposeDataController;
 
 switch ($_SERVER["REQUEST_METHOD"]) {
     case 'POST':
@@ -12,11 +11,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         $response = array();
         $payData = array();
 
-        (new ExposeDataController())->requestLogger($_POST);
-
-        if (!empty($_POST)) {
-            $response = (new USSDHandler($_POST))->run();
-        }
+        if (!empty($_POST)) $response = (new USSDHandler($_POST))->run();
 
         if (isset($response["data"])) {
             $payData = $response["data"];
