@@ -4,6 +4,7 @@ require_once('bootstrap.php');
 
 use Src\Controller\USSDHandler;
 use Src\Controller\PaymentController;
+use Src\Controller\ExposeDataController;
 
 switch ($_SERVER["REQUEST_METHOD"]) {
     case 'POST':
@@ -23,6 +24,15 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 
         if (!empty($payData)) (new PaymentController())->orchardPaymentControllerB($payData);
 
+        break;
+
+    case 'GET':
+        if (isset($_GET["status"]) && !empty($_GET["status"]) && isset($_GET["exttrid"]) && !empty($_GET["exttrid"])) {
+            $expose = new ExposeDataController();
+            $status = $expose->validatePhone($_GET["status"]);
+            $transaction_id = $expose->validatePhone($_GET["exttrid"]);
+            $data = $expose->confirmPurchase($transaction_id);
+        }
         break;
 
     default:

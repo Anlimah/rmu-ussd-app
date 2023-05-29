@@ -295,7 +295,7 @@ class ExposeDataController
     public function callOrchardGateway($data)
     {
         $payConfirm = new PaymentController();
-        return $payConfirm->orchardPaymentController($data);
+        return $payConfirm->orchardPaymentControllerB($data);
     }
 
     /**
