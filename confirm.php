@@ -10,6 +10,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         $response = array();
 
         $expose = new ExposeDataController();
+        $expose->requestLogger("from confirm.php - POST");
         $expose->requestLogger($_POST);
 
         if (!empty($_POST)) {
@@ -19,7 +20,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         break;
 
     case 'GET':
+        $_GET = json_decode(file_get_contents("php://input"), true);
         $_GET["getter"] = "From get part";
+        $expose->requestLogger("from confirm.php - GET");
         $expose->requestLogger($_GET);
         break;
 
