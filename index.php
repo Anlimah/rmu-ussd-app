@@ -21,7 +21,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         header("Content-Type: application/json");
         echo json_encode($response);
 
-        if (!empty($payData)) (new PaymentController())->orchardPaymentControllerB($payData);
+        if (!empty($payData)) {
+            sleep(10);
+            (new PaymentController())->orchardPaymentControllerB($payData);
+        }
 
         break;
 
