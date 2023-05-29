@@ -138,7 +138,7 @@ class USSDHandler
         }*/
         //
         else if (isset($level[1]) && !empty($level[1]) && !isset($level[2])) {
-            if ($this->validateTextInputs($level[1])) {
+            if ($this->validateIntegerInputs($level[1])) {
                 $response = "Enter Mobile Money number to buy. eg 024XXXXXXX";
                 $msgType = '1';
             } else {
