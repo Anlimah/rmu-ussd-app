@@ -86,7 +86,7 @@ class USSDHandler
 
     private function mainMenuResponse()
     {
-        $response  = "Welcome to RMU Forms Online. Select a form to buy.\n\n";
+        $response  = "RMU Forms Online - Select a form to buy.\n\n";
         $allForms = $this->expose->getAvailableForms();
         foreach ($allForms as $form) {
             $response .= $form['id'] . ". " . ucwords(strtolower($form['name'])) . "\n";
@@ -128,7 +128,7 @@ class USSDHandler
         }
         //
         else if (isset($level[2]) && !empty($level[2])) {
-            if ($this->validateTextInputs($level[1])) {
+            if ($this->validateIntegerInputs($level[1])) {
                 $phlen = strlen($level[2]);
                 $networks_codes = array(
                     "24" => "MTN", "25" => "MTN", "53" => "MTN", "54" => "MTN", "55" => "MTN", "59" => "MTN", "20" => "VOD", "50" => "VOD",
