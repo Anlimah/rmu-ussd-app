@@ -14,16 +14,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         $expose->requestLogger("FROm post");
 
         if (!empty($_POST)) {
-            $transaction_id = $expose->validatePhone($_POST["trans_id"]);
+            $transaction_id = $expose->validatePhone($_POST["trans_ref"]);
             $data = $expose->confirmPurchase($transaction_id);
+            $expose->requestLogger($data["message"]);
         }
 
-        break;
-
-    case 'GET':
-        $_GET["getter"] = "From get part";
-        $expose->requestLogger(json_encode($_GET));
-        $expose->requestLogger("FROm get");
         break;
 
     default:
