@@ -86,7 +86,7 @@ class USSDHandler
 
     private function mainMenuResponse()
     {
-        $response  = "Select a form to buy.\n\n";
+        $response  = "Welcome to RMU Forms Online. Select a form to buy.\n\n";
         $allForms = $this->expose->getAvailableForms();
         foreach ($allForms as $form) {
             $response .= $form['id'] . ". " . ucwords(strtolower($form['name'])) . "\n";
@@ -116,26 +116,6 @@ class USSDHandler
                 $msgType = '2';
             }
         }
-        //
-        /*elseif (isset($level[1]) && !empty($level[1]) && !isset($level[2])) {
-            if ($this->validateSelectedOption($level[1]) && $level[1] == 1) {
-                $response = "Enter your first name.";
-                $msgType = '1';
-            } else {
-                $response = "Sorry you've entered an invalid option.";
-                $msgType = '2';
-            }
-        }*/
-        //
-        /*else if (isset($level[2]) && !empty($level[2]) && !isset($level[1])) {
-            if ($this->validateTextInputs($level[2])) {
-                $response = "{$level[2]}, please enter your last name.";
-                $msgType = '1';
-            } else {
-                $response = "Sorry you've entered an invalid input.";
-                $msgType = '2';
-            }
-        }*/
         //
         else if (isset($level[1]) && !empty($level[1]) && !isset($level[2])) {
             if ($this->validateIntegerInputs($level[1])) {
@@ -172,7 +152,7 @@ class USSDHandler
                 $network = $networks_codes[$net_code];
 
                 if (!$network) {
-                    $response = "Sorry, your network not supported. Visit https://forms.rmuictonline.com, to buy RMU forms with all networks";
+                    $response = "Sorry, network not supported. Visit https://forms.rmuictonline.com, to buy RMU forms with all networks";
                 } else {
                     $vendor_id = "1665605087";
                     $phone_number = "0" . substr($level[2], $phone_number_start, 9);
@@ -181,7 +161,7 @@ class USSDHandler
 
                     $data = array(
                         "first_name" => "USSD",
-                        "last_name" => "USSD",
+                        "last_name" => $this->phoneNumber,
                         "email_address" => "",
                         "country_name" => "Ghana",
                         "country_code" => '+233',
