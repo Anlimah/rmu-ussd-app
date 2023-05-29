@@ -12,7 +12,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         $response = array();
         $payData = array();
 
-        if (!empty($_POST)) $response = (new USSDHandler($_POST))->run();
+        (new ExposeDataController())->requestLogger($_POST);
+
+        if (!empty($_POST)) {
+            $response = (new USSDHandler($_POST))->run();
+        }
 
         if (isset($response["data"])) {
             $payData = $response["data"];
@@ -24,15 +28,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 
         if (!empty($payData)) (new PaymentController())->orchardPaymentControllerB($payData);
 
-        break;
-
-    case 'GET':
-        if (isset($_GET["status"]) && !empty($_GET["status"]) && isset($_GET["exttrid"]) && !empty($_GET["exttrid"])) {
-            $expose = new ExposeDataController();
-            $status = $expose->validatePhone($_GET["status"]);
-            $transaction_id = $expose->validatePhone($_GET["exttrid"]);
-            $data = $expose->confirmPurchase($transaction_id);
-        }
         break;
 
     default:

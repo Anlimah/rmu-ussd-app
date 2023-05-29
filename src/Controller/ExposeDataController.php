@@ -319,6 +319,13 @@ class ExposeDataController
         return $this->dm->getID($str, array(':i' => $vendor_id));
     }
 
+    public function requestLogger($request)
+    {
+        $query = "INSERT INTO `ussd_request_logs` (`request`) VALUES(:nc)";
+        $params = array(":nc" => $request);
+        $this->dm->inputData($query, $params);
+    }
+
     /*public function confirmVendorPurchase(int $vendor_id, int $transaction_id)
     {
         $payConfirm = new PaymentController();
