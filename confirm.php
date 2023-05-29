@@ -10,20 +10,19 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         $response = array();
 
         $expose = new ExposeDataController();
-        $expose->requestLogger("from confirm.php - POST");
         $expose->requestLogger($_POST);
+        $expose->requestLogger("FROm post");
 
         if (!empty($_POST)) {
-            $transaction_id = $expose->validatePhone($_POST["trans_id"]);
+            $transaction_id = $expose->validatePhone($_POST["exttrid"]);
             $data = $expose->confirmPurchase($transaction_id);
         }
-        break;
 
+        break;
     case 'GET':
-        //$_GET = json_decode(file_get_contents("php://input"), true);
         $_GET["getter"] = "From get part";
-        $expose->requestLogger("from confirm.php - GET");
         $expose->requestLogger(json_encode($_GET));
+        $expose->requestLogger("FROm get");
         break;
 
     default:
