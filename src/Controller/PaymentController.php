@@ -87,7 +87,7 @@ class PaymentController
     {
         $trans_id = time();
 
-        $callback_url = "https://forms.rmuictonline.com/confirm.php";
+        $callback_url = "https://ussd.rmuictonline.com/confirm.php";
         $payload = json_encode(array(
             "amount" => $data["amount"],
             "callback_url" => $callback_url,

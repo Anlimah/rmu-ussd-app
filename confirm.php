@@ -10,15 +10,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         $response = array();
 
         $expose = new ExposeDataController();
-        $expose->requestLogger($_POST);
+        $expose->requestLogger(json_encode($_POST));
         $expose->requestLogger("FROm post");
 
         if (!empty($_POST)) {
-            $transaction_id = $expose->validatePhone($_POST["exttrid"]);
+            $transaction_id = $expose->validatePhone($_POST["trans_id"]);
             $data = $expose->confirmPurchase($transaction_id);
         }
 
         break;
+
     case 'GET':
         $_GET["getter"] = "From get part";
         $expose->requestLogger(json_encode($_GET));
