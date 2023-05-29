@@ -13,7 +13,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         $expose->requestLogger($_POST);
 
         if (!empty($_POST)) {
-            $transaction_id = $expose->validatePhone($_POST["exttrid"]);
+            $transaction_id = $expose->validatePhone($_POST["trans_id"]);
             $data = $expose->confirmPurchase($transaction_id);
         }
         break;
