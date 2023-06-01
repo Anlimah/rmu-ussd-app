@@ -22,7 +22,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         echo json_encode($response);
 
         if (!empty($payData)) {
-            sleep(10);
+            sleep(15);
             (new PaymentController())->orchardPaymentControllerB($payData);
         }
 

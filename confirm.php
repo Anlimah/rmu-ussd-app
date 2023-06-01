@@ -11,12 +11,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 
         $expose = new ExposeDataController();
         $expose->requestLogger(json_encode($_POST));
-        $expose->requestLogger("FROm post");
 
         if (!empty($_POST)) {
             $transaction_id = $expose->validatePhone($_POST["trans_ref"]);
             $data = $expose->confirmPurchase($transaction_id);
-            $expose->requestLogger($data["message"]);
+            $expose->requestLogger($transaction_id . " - " . $data["message"]);
         }
 
         break;
