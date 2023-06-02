@@ -215,15 +215,6 @@ class USSDHandler
         return false;
     }
 
-    private function validateTextInputs($input)
-    {
-        if (empty($input)) return false;
-        $user_input = htmlentities(htmlspecialchars($input));
-        $validated_input = (bool) preg_match('/^[a-zA-Z\-\.]+$/', $user_input);
-        if ($validated_input) return true;
-        return false;
-    }
-
     public function activityLogger()
     {
         $query = "INSERT INTO `ussd_activity_logs` (`session_id`, `service_code`, `msisdn`, `msg_type`, `ussd_body`, `nw_code`) 
