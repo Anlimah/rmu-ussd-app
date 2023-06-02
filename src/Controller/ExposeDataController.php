@@ -203,13 +203,6 @@ class ExposeDataController
         return $this->dm->getData("SELECT * FROM `forms` WHERE `name` = :fn", array(":fn" => $form_name));
     }
 
-    /*public function getFormPrice(string $form_type, int $admin_period)
-    {
-        $sql = "SELECT `amount` FROM `forms` AS p, `form_type` AS t 
-        WHERE t.`name` LIKE '%$form_type%' AND p.`admin_period` = :a AND p.`form_type` = t.`id`";
-        return $this->dm->getData($sql, array(":a" => $admin_period));
-    }*/
-
     public function getAdminYearCode()
     {
         $sql = "SELECT EXTRACT(YEAR FROM (SELECT `start_date` FROM admission_period WHERE active = 1)) AS 'year'";
@@ -233,28 +226,6 @@ class ExposeDataController
         return $this->dm->getData("SELECT f.* FROM `forms` AS f, `form_categories` AS fc 
         WHERE f.form_category = fc.id AND fc.name IN ('UNDERGRADUATE', 'POSTGRADUATE')");
     }
-
-    /*public function getFormTypes()
-    {
-        return $this->dm->getData("SELECT * FROM `form_type`");
-    }*/
-
-    /*public function getPaymentMethods()
-    {
-        return $this->dm->getData("SELECT * FROM `payment_method`");
-    }*/
-
-    /*public function getPrograms($type)
-    {
-        $sql = "SELECT * FROM `programs` WHERE `type` = :t";
-        $param = array(":t" => $type);
-        return $this->dm->getData($sql, $param);
-    }
-
-    public function getHalls()
-    {
-        return $this->dm->getData("SELECT * FROM `halls`");
-    }*/
 
     public function sendHubtelSMS($url, $payload)
     {
@@ -325,33 +296,4 @@ class ExposeDataController
         $params = array(":nc" => $request);
         $this->dm->inputData($query, $params);
     }
-
-    /*public function confirmVendorPurchase(int $vendor_id, int $transaction_id)
-    {
-        $payConfirm = new PaymentController();
-        return $payConfirm->verifyVendorPurchase($vendor_id, $transaction_id);
-    }*/
-
-    /*public function verifyVendorLogin($username, $password)
-    {
-        $sql = "SELECT `vendor`, `password` FROM `vendor_login` WHERE `user_name` = :u";
-        $data = $this->dm->getData($sql, array(':u' => sha1($username)));
-        if (!empty($data)) {
-            if (password_verify($password, $data[0]["password"])) {
-                return array("success" => true, "message" => $data[0]["vendor"]);
-            } else {
-                return array("success" => false, "message" => "No match found!");
-            }
-        }
-        return array("success" => false, "message" => "User does not exist!");
-    }*/
-
-    /*public function getApplicationInfo(int $transaction_id)
-    {
-        $sql = "SELECT p.`app_number`, p.`pin_number`, tp.`name`, fp.`amount`, v.`vendor_name`, a.`info` 
-        FROM `purchase_detail` AS p, `form_type` AS tp, `forms` AS fp, `vendor_details` AS v, `admission_period` AS a 
-        WHERE p.`form_type` = tp.`id` AND p.vendor = v.`id` AND p.`admission_period` = a.`id` AND p.`id` = :i AND 
-        fp.`form_type` = tp.`id` AND fp.`admin_period` = a.`id`";
-        return $this->dm->getData($sql, array(':i' => $transaction_id));
-    }*/
 }
