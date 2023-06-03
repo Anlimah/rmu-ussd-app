@@ -15,7 +15,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 
         if (isset($response["data"])) {
             $payData = $response["data"];
-            unset($response["data"]);
+            //unset($response["data"]);
         }
 
         header("Content-Type: application/json");
