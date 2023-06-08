@@ -228,6 +228,7 @@ class ExposeDataController
         return $this->dm->getData("SELECT f.* FROM `forms` AS f, `form_categories` AS fc 
         WHERE f.form_category = fc.id AND fc.name IN ('UNDERGRADUATE', 'POSTGRADUATE')");
     }
+    
     public function sendEmail($recipient_email, $subject, $message)
     {
         //PHPMailer Object
