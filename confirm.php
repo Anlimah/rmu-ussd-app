@@ -15,7 +15,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         if (!empty($_POST)) {
             $transaction_id = $expose->validatePhone($_POST["trans_ref"]);
             $data = $expose->confirmPurchase($transaction_id);
-            $expose->requestLogger($transaction_id . " - " . $data["message"]);
+            $expose->requestLogger($transaction_id . " - " . $data[0]["message"]);
         }
 
         break;
