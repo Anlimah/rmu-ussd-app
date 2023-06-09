@@ -255,9 +255,6 @@ class VoucherPurchase
             $response = json_decode($this->expose->sendSMS($to, $message));
 
             if (!$response->status) {
-                if (!empty($data[0]["email_address"])) {
-                    $this->expose->sendEmail($data[0]["email_address"], 'ONLINE APPLICATION PORTAL LOGIN INFORMATION', $message);
-                }
                 return array("success" => true, "exttrid" => $trans_id);
             } else {
                 return array("success" => false, "message" => "Failed sending login details via SMS!");
