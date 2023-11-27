@@ -116,7 +116,7 @@ class USSDHandler
 
     private function mainMenuResponse($option)
     {
-        $response  = "RMU Forms Online - Select a form to buy.\n\n";
+        $response  = "RMU Forms Online - Select a form to buy.\n";
         $allForms = $this->fetchMenuFormsFromDBandSetCache($option);
         foreach ($allForms as $form) {
             $response .= $form['id'] . ". " . ucwords(strtolower($form['name'])) . "\n";
