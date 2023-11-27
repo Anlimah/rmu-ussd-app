@@ -265,7 +265,7 @@ class USSDHandler
 
     private function fetchSessionLogs()
     {
-        $query = "SELECT * FROM `ussd_activity_logs` WHERE `session_id`=:s AND `msisdn`=:p AND `msg_type` <> 0 ORDER BY `timestamp` ASC";
+        $query = "SELECT * FROM `ussd_activity_logs` WHERE `session_id`=:s AND `msisdn`=:p AND `msg_type` NOT IN (0, 99) ORDER BY `timestamp` ASC";
         $params = array(":s" => $this->sessionId, ":p" => $this->phoneNumber);
         return $this->dm->inputData($query, $params);
     }
