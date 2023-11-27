@@ -144,7 +144,7 @@ class USSDHandler
                     $response = $formInfoCached;
                 } else {
                     $formInfo = $this->getFormPriceA($level[0]);
-                    $response = $formInfo[0]["name"] . " forms cost GHc" . $formInfo[0]["amount"] . ".\n  Enter 1 to buy.";
+                    $response = $formInfo[0]["name"] . " forms cost GHc" . $formInfo[0]["amount"] . ".\nEnter 1 to buy.";
                     $this->redis->set($formIDCahched, $response);
                 }
                 $msgType = '1';
