@@ -14,7 +14,7 @@ redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
 pubsub = redis_client.pubsub()
 pubsub.subscribe(channel_name)
 
-for message in pubsub.listen():
+for message in pubsub.listen(timeout=3000):
     if message['type'] == 'message':
         payment_data = json.loads(message['data'])
         headers = {'Content-Type': 'application/json'}  # Set the Content-Type header
