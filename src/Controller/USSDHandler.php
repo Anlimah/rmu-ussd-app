@@ -138,7 +138,7 @@ class USSDHandler
 
         if (isset($level[0]) && !empty($level[0]) && !isset($level[1])) {
             if ($this->validateSelectedFormOption($level[0])) {
-                $formIDCahched = "formInfo" . $level[0];
+                $formIDCahched = "liveFormInfo" . $level[0];
                 $formInfoCached = $this->redis->get($formIDCahched);
                 if ($formInfoCached) {
                     $response = $formInfoCached;
